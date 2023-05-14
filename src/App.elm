@@ -6,8 +6,6 @@ import Html.Attributes exposing (class, disabled)
 import Html.Events exposing (onClick)
 import Time
 
--- Add comment to bump github
-
 -- MAIN
 
 main : Program () Model Msg
