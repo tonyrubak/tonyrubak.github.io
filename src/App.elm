@@ -2,7 +2,7 @@ module App exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
 import Html exposing (Html, text, div, button)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, disabled)
 import Html.Events exposing (onClick)
 import Time
 
@@ -58,9 +58,12 @@ update msg model =
             , Cmd.none
             )
         BuyCursor ->
-            ( { model | cursors = model.cursors + 1, clicks = model.clicks - 15 }
-            , Cmd.none
-            )
+            if model.clicks >= 15 then
+                ( { model | cursors = model.cursors + 1, clicks = model.clicks - 15 }
+                , Cmd.none
+                )
+            else
+                ( model, Cmd.none )
 
 
 -- SUBSCRIPTIONS
@@ -83,5 +86,5 @@ view model =
         , div
             [ class "row" ]
             [ div [ class "col-3" ] [ button [ class "btn", onClick Click ] [ text "Click" ] ]
-            , div [ class "col-3" ] [ button [ class "btn", onClick BuyCursor ] [ text "Cursor" ] ]
+            , div [ class "col-3" ] [ button [ class "btn", onClick BuyCursor, disabled <| model.clicks < 15 ] [ text "Cursor" ] ]
             ]]
