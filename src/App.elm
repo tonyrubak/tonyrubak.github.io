@@ -84,7 +84,7 @@ view model =
         [ class "container-fluid" ]
         [ div [ class "h1 text-center" ] [ text <| String.fromInt model.clicks ]
         , div
-            [ class "row" ]
-            [ div [ class "col-3" ] [ button [ class "btn", onClick Click ] [ text "Click" ] ]
-            , div [ class "col-3" ] [ button [ class "btn", onClick BuyCursor, disabled <| model.clicks < 15 ] [ text "Cursor" ] ]
+            [ class "row justify-content-center" ]
+            [ div [ class "col-auto" ] [ button [ class "btn btn-primary", onClick Click ] [ text "Click" ] ]
+            , div [ class "col-auto" ] [ button [ class "btn btn-primary", onClick BuyCursor, disabled <| model.clicks < 15 ] [ text "Cursor" ] ]
             ]]
