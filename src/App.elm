@@ -48,16 +48,16 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick _ ->
-            ( { model | clicks = model.clicks + (round <| 0.1 * toFloat model.cursors) }
+            ( { model | clicks = model.clicks + (1 * model.cursors) }
             , Cmd.none
             )
         Click ->
-            ( { model | clicks = model.clicks + 1}
+            ( { model | clicks = model.clicks + 100 }
             , Cmd.none
             )
         BuyCursor ->
             if model.clicks >= 15 then
-                ( { model | cursors = model.cursors + 1, clicks = model.clicks - 15 }
+                ( { model | cursors = model.cursors + 1, clicks = model.clicks - 1500 }
                 , Cmd.none
                 )
             else
@@ -69,7 +69,7 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Time.every 1000 Tick
+    Time.every 100 Tick
 
 
 
@@ -80,9 +80,9 @@ view : Model -> Html Msg
 view model =
     div
         [ class "container-fluid" ]
-        [ div [ class "h1 text-center" ] [ text <| String.fromInt model.clicks ]
+        [ div [ class "h1 text-center" ] [ text <| String.fromInt <| round <| toFloat model.clicks / 100 ]
         , div
             [ class "row justify-content-center" ]
             [ div [ class "col-auto" ] [ button [ class "btn btn-primary", onClick Click ] [ text "Click" ] ]
-            , div [ class "col-auto" ] [ button [ class "btn btn-primary", onClick BuyCursor, disabled <| model.clicks < 15 ] [ text "Cursor" ] ]
+            , div [ class "col-auto" ] [ button [ class "btn btn-primary", onClick BuyCursor, disabled <| model.clicks < 1500 ] [ text "Cursor" ] ]
             ]]

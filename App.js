@@ -5635,10 +5635,9 @@ var $elm$time$Time$every = F2(
 			A2($elm$time$Time$Every, interval, tagger));
 	});
 var $author$project$App$subscriptions = function (_v0) {
-	return A2($elm$time$Time$every, 1000, $author$project$App$Tick);
+	return A2($elm$time$Time$every, 100, $author$project$App$Tick);
 };
 var $elm$core$Basics$ge = _Utils_ge;
-var $elm$core$Basics$round = _Basics_round;
 var $author$project$App$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
@@ -5646,21 +5645,19 @@ var $author$project$App$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{
-							clicks: model.clicks + $elm$core$Basics$round(0.1 * model.cursors)
-						}),
+						{clicks: model.clicks + (1 * model.cursors)}),
 					$elm$core$Platform$Cmd$none);
 			case 'Click':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{clicks: model.clicks + 1}),
+						{clicks: model.clicks + 100}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				return (model.clicks >= 15) ? _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{clicks: model.clicks - 15, cursors: model.cursors + 1}),
+						{clicks: model.clicks - 1500, cursors: model.cursors + 1}),
 					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
@@ -5703,6 +5700,7 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$core$Basics$round = _Basics_round;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$App$view = function (model) {
@@ -5723,7 +5721,8 @@ var $author$project$App$view = function (model) {
 				_List_fromArray(
 					[
 						$elm$html$Html$text(
-						$elm$core$String$fromInt(model.clicks))
+						$elm$core$String$fromInt(
+							$elm$core$Basics$round(model.clicks / 100)))
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -5767,7 +5766,7 @@ var $author$project$App$view = function (model) {
 									[
 										$elm$html$Html$Attributes$class('btn btn-primary'),
 										$elm$html$Html$Events$onClick($author$project$App$BuyCursor),
-										$elm$html$Html$Attributes$disabled(model.clicks < 15)
+										$elm$html$Html$Attributes$disabled(model.clicks < 1500)
 									]),
 								_List_fromArray(
 									[
