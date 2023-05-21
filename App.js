@@ -4373,6 +4373,43 @@ function _Browser_load(url)
 
 
 
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
 function _Time_now(millisToPosix)
 {
 	return _Scheduler_binding(function(callback)
@@ -5205,281 +5242,47 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$App$Model = F2(
-	function (clicks, cursors) {
-		return {clicks: clicks, cursors: cursors};
+var $author$project$App$Model = F6(
+	function (weightM, weightF, weightK, weightB, pax, manifest) {
+		return {manifest: manifest, pax: pax, weightB: weightB, weightF: weightF, weightK: weightK, weightM: weightM};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$App$init = function (_v0) {
 	return _Utils_Tuple2(
-		A2($author$project$App$Model, 0, 0),
+		A6($author$project$App$Model, 200, 179, 82, 50, 0, _List_Nil),
 		$elm$core$Platform$Cmd$none);
 };
-var $author$project$App$Tick = function (a) {
-	return {$: 'Tick', a: a};
+var $elm$core$Platform$Sub$batch = _Platform_batch;
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$App$subscriptions = function (_v0) {
+	return $elm$core$Platform$Sub$none;
 };
-var $elm$time$Time$Every = F2(
+var $author$project$App$NewManifest = function (a) {
+	return {$: 'NewManifest', a: a};
+};
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
 	function (a, b) {
-		return {$: 'Every', a: a, b: b};
+		return {$: 'Seed', a: a, b: b};
 	});
-var $elm$time$Time$State = F2(
-	function (taggers, processes) {
-		return {processes: processes, taggers: taggers};
-	});
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
-var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
-var $elm$time$Time$init = $elm$core$Task$succeed(
-	A2($elm$time$Time$State, $elm$core$Dict$empty, $elm$core$Dict$empty));
-var $elm$core$Basics$compare = _Utils_compare;
-var $elm$core$Dict$get = F2(
-	function (targetKey, dict) {
-		get:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var _v1 = A2($elm$core$Basics$compare, targetKey, key);
-				switch (_v1.$) {
-					case 'LT':
-						var $temp$targetKey = targetKey,
-							$temp$dict = left;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-					case 'EQ':
-						return $elm$core$Maybe$Just(value);
-					default:
-						var $temp$targetKey = targetKey,
-							$temp$dict = right;
-						targetKey = $temp$targetKey;
-						dict = $temp$dict;
-						continue get;
-				}
-			}
-		}
-	});
-var $elm$core$Dict$Black = {$: 'Black'};
-var $elm$core$Dict$RBNode_elm_builtin = F5(
-	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
-	});
-var $elm$core$Dict$Red = {$: 'Red'};
-var $elm$core$Dict$balance = F5(
-	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
-			var _v1 = right.a;
-			var rK = right.b;
-			var rV = right.c;
-			var rLeft = right.d;
-			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
-				var _v3 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var lLeft = left.d;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					key,
-					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
-			} else {
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					color,
-					rK,
-					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
-					rRight);
-			}
-		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
-				var _v5 = left.a;
-				var lK = left.b;
-				var lV = left.c;
-				var _v6 = left.d;
-				var _v7 = _v6.a;
-				var llK = _v6.b;
-				var llV = _v6.c;
-				var llLeft = _v6.d;
-				var llRight = _v6.e;
-				var lRight = left.e;
-				return A5(
-					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
-					lK,
-					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
-			} else {
-				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
-			}
-		}
-	});
-var $elm$core$Dict$insertHelp = F3(
-	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
-		} else {
-			var nColor = dict.a;
-			var nKey = dict.b;
-			var nValue = dict.c;
-			var nLeft = dict.d;
-			var nRight = dict.e;
-			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						A3($elm$core$Dict$insertHelp, key, value, nLeft),
-						nRight);
-				case 'EQ':
-					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
-				default:
-					return A5(
-						$elm$core$Dict$balance,
-						nColor,
-						nKey,
-						nValue,
-						nLeft,
-						A3($elm$core$Dict$insertHelp, key, value, nRight));
-			}
-		}
-	});
-var $elm$core$Dict$insert = F3(
-	function (key, value, dict) {
-		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
-			var _v1 = _v0.a;
-			var k = _v0.b;
-			var v = _v0.c;
-			var l = _v0.d;
-			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
-		} else {
-			var x = _v0;
-			return x;
-		}
-	});
-var $elm$time$Time$addMySub = F2(
-	function (_v0, state) {
-		var interval = _v0.a;
-		var tagger = _v0.b;
-		var _v1 = A2($elm$core$Dict$get, interval, state);
-		if (_v1.$ === 'Nothing') {
-			return A3(
-				$elm$core$Dict$insert,
-				interval,
-				_List_fromArray(
-					[tagger]),
-				state);
-		} else {
-			var taggers = _v1.a;
-			return A3(
-				$elm$core$Dict$insert,
-				interval,
-				A2($elm$core$List$cons, tagger, taggers),
-				state);
-		}
-	});
-var $elm$core$Process$kill = _Scheduler_kill;
-var $elm$core$Dict$foldl = F3(
-	function (func, acc, dict) {
-		foldl:
-		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
-				return acc;
-			} else {
-				var key = dict.b;
-				var value = dict.c;
-				var left = dict.d;
-				var right = dict.e;
-				var $temp$func = func,
-					$temp$acc = A3(
-					func,
-					key,
-					value,
-					A3($elm$core$Dict$foldl, func, acc, left)),
-					$temp$dict = right;
-				func = $temp$func;
-				acc = $temp$acc;
-				dict = $temp$dict;
-				continue foldl;
-			}
-		}
-	});
-var $elm$core$Dict$merge = F6(
-	function (leftStep, bothStep, rightStep, leftDict, rightDict, initialResult) {
-		var stepState = F3(
-			function (rKey, rValue, _v0) {
-				stepState:
-				while (true) {
-					var list = _v0.a;
-					var result = _v0.b;
-					if (!list.b) {
-						return _Utils_Tuple2(
-							list,
-							A3(rightStep, rKey, rValue, result));
-					} else {
-						var _v2 = list.a;
-						var lKey = _v2.a;
-						var lValue = _v2.b;
-						var rest = list.b;
-						if (_Utils_cmp(lKey, rKey) < 0) {
-							var $temp$rKey = rKey,
-								$temp$rValue = rValue,
-								$temp$_v0 = _Utils_Tuple2(
-								rest,
-								A3(leftStep, lKey, lValue, result));
-							rKey = $temp$rKey;
-							rValue = $temp$rValue;
-							_v0 = $temp$_v0;
-							continue stepState;
-						} else {
-							if (_Utils_cmp(lKey, rKey) > 0) {
-								return _Utils_Tuple2(
-									list,
-									A3(rightStep, rKey, rValue, result));
-							} else {
-								return _Utils_Tuple2(
-									rest,
-									A4(bothStep, lKey, lValue, rValue, result));
-							}
-						}
-					}
-				}
-			});
-		var _v3 = A3(
-			$elm$core$Dict$foldl,
-			stepState,
-			_Utils_Tuple2(
-				$elm$core$Dict$toList(leftDict),
-				initialResult),
-			rightDict);
-		var leftovers = _v3.a;
-		var intermediateResult = _v3.b;
-		return A3(
-			$elm$core$List$foldl,
-			F2(
-				function (_v4, result) {
-					var k = _v4.a;
-					var v = _v4.b;
-					return A3(leftStep, k, v, result);
-				}),
-			intermediateResult,
-			leftovers);
-	});
-var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
 var $elm$time$Time$Name = function (a) {
 	return {$: 'Name', a: a};
 };
@@ -5491,178 +5294,304 @@ var $elm$time$Time$Zone = F2(
 		return {$: 'Zone', a: a, b: b};
 	});
 var $elm$time$Time$customZone = $elm$time$Time$Zone;
-var $elm$time$Time$setInterval = _Time_setInterval;
-var $elm$core$Process$spawn = _Scheduler_spawn;
-var $elm$time$Time$spawnHelp = F3(
-	function (router, intervals, processes) {
-		if (!intervals.b) {
-			return $elm$core$Task$succeed(processes);
-		} else {
-			var interval = intervals.a;
-			var rest = intervals.b;
-			var spawnTimer = $elm$core$Process$spawn(
-				A2(
-					$elm$time$Time$setInterval,
-					interval,
-					A2($elm$core$Platform$sendToSelf, router, interval)));
-			var spawnRest = function (id) {
-				return A3(
-					$elm$time$Time$spawnHelp,
-					router,
-					rest,
-					A3($elm$core$Dict$insert, interval, id, processes));
-			};
-			return A2($elm$core$Task$andThen, spawnRest, spawnTimer);
-		}
-	});
-var $elm$time$Time$onEffects = F3(
-	function (router, subs, _v0) {
-		var processes = _v0.processes;
-		var rightStep = F3(
-			function (_v6, id, _v7) {
-				var spawns = _v7.a;
-				var existing = _v7.b;
-				var kills = _v7.c;
-				return _Utils_Tuple3(
-					spawns,
-					existing,
-					A2(
-						$elm$core$Task$andThen,
-						function (_v5) {
-							return kills;
-						},
-						$elm$core$Process$kill(id)));
-			});
-		var newTaggers = A3($elm$core$List$foldl, $elm$time$Time$addMySub, $elm$core$Dict$empty, subs);
-		var leftStep = F3(
-			function (interval, taggers, _v4) {
-				var spawns = _v4.a;
-				var existing = _v4.b;
-				var kills = _v4.c;
-				return _Utils_Tuple3(
-					A2($elm$core$List$cons, interval, spawns),
-					existing,
-					kills);
-			});
-		var bothStep = F4(
-			function (interval, taggers, id, _v3) {
-				var spawns = _v3.a;
-				var existing = _v3.b;
-				var kills = _v3.c;
-				return _Utils_Tuple3(
-					spawns,
-					A3($elm$core$Dict$insert, interval, id, existing),
-					kills);
-			});
-		var _v1 = A6(
-			$elm$core$Dict$merge,
-			leftStep,
-			bothStep,
-			rightStep,
-			newTaggers,
-			processes,
-			_Utils_Tuple3(
-				_List_Nil,
-				$elm$core$Dict$empty,
-				$elm$core$Task$succeed(_Utils_Tuple0)));
-		var spawnList = _v1.a;
-		var existingDict = _v1.b;
-		var killTask = _v1.c;
-		return A2(
-			$elm$core$Task$andThen,
-			function (newProcesses) {
-				return $elm$core$Task$succeed(
-					A2($elm$time$Time$State, newTaggers, newProcesses));
-			},
-			A2(
-				$elm$core$Task$andThen,
-				function (_v2) {
-					return A3($elm$time$Time$spawnHelp, router, spawnList, existingDict);
-				},
-				killTask));
-	});
 var $elm$time$Time$Posix = function (a) {
 	return {$: 'Posix', a: a};
 };
 var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
 var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
-var $elm$time$Time$onSelfMsg = F3(
-	function (router, interval, state) {
-		var _v0 = A2($elm$core$Dict$get, interval, state.taggers);
-		if (_v0.$ === 'Nothing') {
-			return $elm$core$Task$succeed(state);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
 		} else {
-			var taggers = _v0.a;
-			var tellTaggers = function (time) {
-				return $elm$core$Task$sequence(
-					A2(
-						$elm$core$List$map,
-						function (tagger) {
-							return A2(
-								$elm$core$Platform$sendToApp,
-								router,
-								tagger(time));
-						},
-						taggers));
-			};
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
 			return A2(
 				$elm$core$Task$andThen,
-				function (_v1) {
-					return $elm$core$Task$succeed(state);
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
 				},
-				A2($elm$core$Task$andThen, tellTaggers, $elm$time$Time$now));
+				A2($elm$core$Platform$sendToApp, router, value));
 		}
 	});
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
 	});
-var $elm$time$Time$subMap = F2(
-	function (f, _v0) {
-		var interval = _v0.a;
-		var tagger = _v0.b;
-		return A2(
-			$elm$time$Time$Every,
-			interval,
-			A2($elm$core$Basics$composeL, f, tagger));
-	});
-_Platform_effectManagers['Time'] = _Platform_createManager($elm$time$Time$init, $elm$time$Time$onEffects, $elm$time$Time$onSelfMsg, 0, $elm$time$Time$subMap);
-var $elm$time$Time$subscription = _Platform_leaf('Time');
-var $elm$time$Time$every = F2(
-	function (interval, tagger) {
-		return $elm$time$Time$subscription(
-			A2($elm$time$Time$Every, interval, tagger));
-	});
-var $author$project$App$subscriptions = function (_v0) {
-	return A2($elm$time$Time$every, 100, $author$project$App$Tick);
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
 };
-var $elm$core$Basics$ge = _Utils_ge;
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$random$Random$listHelp = F4(
+	function (revList, n, gen, seed) {
+		listHelp:
+		while (true) {
+			if (n < 1) {
+				return _Utils_Tuple2(revList, seed);
+			} else {
+				var _v0 = gen(seed);
+				var value = _v0.a;
+				var newSeed = _v0.b;
+				var $temp$revList = A2($elm$core$List$cons, value, revList),
+					$temp$n = n - 1,
+					$temp$gen = gen,
+					$temp$seed = newSeed;
+				revList = $temp$revList;
+				n = $temp$n;
+				gen = $temp$gen;
+				seed = $temp$seed;
+				continue listHelp;
+			}
+		}
+	});
+var $elm$random$Random$list = F2(
+	function (n, _v0) {
+		var gen = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed) {
+				return A4($elm$random$Random$listHelp, _List_Nil, n, gen, seed);
+			});
+	});
+var $author$project$App$Passenger = F3(
+	function (paxType, gender, bags) {
+		return {bags: bags, gender: gender, paxType: paxType};
+	});
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$float = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var seed1 = $elm$random$Random$next(seed0);
+				var range = $elm$core$Basics$abs(b - a);
+				var n1 = $elm$random$Random$peel(seed1);
+				var n0 = $elm$random$Random$peel(seed0);
+				var lo = (134217727 & n1) * 1.0;
+				var hi = (67108863 & n0) * 1.0;
+				var val = ((hi * 134217728.0) + lo) / 9007199254740992.0;
+				var scaled = (val * range) + a;
+				return _Utils_Tuple2(
+					scaled,
+					$elm$random$Random$next(seed1));
+			});
+	});
+var $author$project$App$bags = A2(
+	$elm$random$Random$map,
+	function (u) {
+		return (u < 0.15) ? 0 : ((u < 0.75) ? 1 : ((u < 0.94) ? 2 : ((u < 0.98) ? 3 : 4)));
+	},
+	A2($elm$random$Random$float, 0, 1));
+var $author$project$App$Child = {$: 'Child'};
+var $author$project$App$Female = {$: 'Female'};
+var $author$project$App$Male = {$: 'Male'};
+var $author$project$App$gender = A2(
+	$elm$random$Random$map,
+	function (x) {
+		return (x < 0.04) ? $author$project$App$Child : ((x < 0.52) ? $author$project$App$Female : $author$project$App$Male);
+	},
+	A2($elm$random$Random$float, 0, 1));
+var $elm$random$Random$map3 = F4(
+	function (func, _v0, _v1, _v2) {
+		var genA = _v0.a;
+		var genB = _v1.a;
+		var genC = _v2.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v3 = genA(seed0);
+				var a = _v3.a;
+				var seed1 = _v3.b;
+				var _v4 = genB(seed1);
+				var b = _v4.a;
+				var seed2 = _v4.b;
+				var _v5 = genC(seed2);
+				var c = _v5.a;
+				var seed3 = _v5.b;
+				return _Utils_Tuple2(
+					A3(func, a, b, c),
+					seed3);
+			});
+	});
+var $author$project$App$Busines = {$: 'Busines'};
+var $author$project$App$Personal = {$: 'Personal'};
+var $author$project$App$paxType = A2(
+	$elm$random$Random$map,
+	function (u) {
+		return (u < 0.05) ? $author$project$App$Busines : $author$project$App$Personal;
+	},
+	A2($elm$random$Random$float, 0, 1));
+var $author$project$App$passenger = A4(
+	$elm$random$Random$map3,
+	F3(
+		function (t, g, b) {
+			return A3($author$project$App$Passenger, t, g, b);
+		}),
+	$author$project$App$paxType,
+	$author$project$App$gender,
+	$author$project$App$bags);
+var $author$project$App$manifest = function (pax) {
+	return A2($elm$random$Random$list, pax, $author$project$App$passenger);
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var $author$project$App$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'Tick':
+			case 'UpdateWeightM':
+				var weight = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{clicks: model.clicks + (1 * model.cursors)}),
+						{
+							weightM: A2(
+								$elm$core$Maybe$withDefault,
+								0,
+								$elm$core$String$toInt(weight))
+						}),
 					$elm$core$Platform$Cmd$none);
-			case 'Click':
+			case 'UpdateWeightF':
+				var weight = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{clicks: model.clicks + 100}),
+						{
+							weightF: A2(
+								$elm$core$Maybe$withDefault,
+								0,
+								$elm$core$String$toInt(weight))
+						}),
 					$elm$core$Platform$Cmd$none);
+			case 'UpdateWeightK':
+				var weight = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							weightK: A2(
+								$elm$core$Maybe$withDefault,
+								0,
+								$elm$core$String$toInt(weight))
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'UpdateWeightB':
+				var weight = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							weightB: A2(
+								$elm$core$Maybe$withDefault,
+								0,
+								$elm$core$String$toInt(weight))
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'UpdatePax':
+				var pax = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							pax: A2(
+								$elm$core$Maybe$withDefault,
+								0,
+								$elm$core$String$toInt(pax))
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'GenerateManifest':
+				return _Utils_Tuple2(
+					model,
+					A2(
+						$elm$random$Random$generate,
+						$author$project$App$NewManifest,
+						$author$project$App$manifest(model.pax)));
 			default:
-				return (model.clicks >= 15) ? _Utils_Tuple2(
+				var newManifest = msg.a;
+				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{clicks: model.clicks - 1500, cursors: model.cursors + 1}),
-					$elm$core$Platform$Cmd$none) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+						{manifest: newManifest}),
+					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$App$BuyCursor = {$: 'BuyCursor'};
-var $author$project$App$Click = {$: 'Click'};
+var $author$project$App$GenerateManifest = {$: 'GenerateManifest'};
+var $author$project$App$UpdatePax = function (a) {
+	return {$: 'UpdatePax', a: a};
+};
+var $author$project$App$UpdateWeightB = function (a) {
+	return {$: 'UpdateWeightB', a: a};
+};
+var $author$project$App$UpdateWeightF = function (a) {
+	return {$: 'UpdateWeightF', a: a};
+};
+var $author$project$App$UpdateWeightK = function (a) {
+	return {$: 'UpdateWeightK', a: a};
+};
+var $author$project$App$UpdateWeightM = function (a) {
+	return {$: 'UpdateWeightM', a: a};
+};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5673,16 +5602,11 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $elm$html$Html$Attributes$boolProperty = F2(
-	function (key, bool) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$bool(bool));
-	});
-var $elm$html$Html$Attributes$disabled = $elm$html$Html$Attributes$boolProperty('disabled');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$Attributes$for = $elm$html$Html$Attributes$stringProperty('htmlFor');
+var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$html$Html$label = _VirtualDom_node('label');
+var $elm$html$Html$Attributes$name = $elm$html$Html$Attributes$stringProperty('name');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5700,9 +5624,62 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$core$Basics$round = _Basics_round;
+var $elm$html$Html$Events$alwaysStop = function (x) {
+	return _Utils_Tuple2(x, true);
+};
+var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
+	return {$: 'MayStopPropagation', a: a};
+};
+var $elm$html$Html$Events$stopPropagationOn = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
+	});
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm$html$Html$Events$onInput = function (tagger) {
+	return A2(
+		$elm$html$Html$Events$stopPropagationOn,
+		'input',
+		A2(
+			$elm$json$Json$Decode$map,
+			$elm$html$Html$Events$alwaysStop,
+			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
+};
+var $author$project$App$paxWeight = F2(
+	function (model, paxGender) {
+		switch (paxGender.$) {
+			case 'Male':
+				return model.weightM;
+			case 'Female':
+				return model.weightF;
+			default:
+				return model.weightK;
+		}
+	});
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $elm$html$Html$Attributes$boolProperty = F2(
+	function (key, bool) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$bool(bool));
+	});
+var $elm$html$Html$Attributes$readonly = $elm$html$Html$Attributes$boolProperty('readOnly');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$App$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -5720,9 +5697,7 @@ var $author$project$App$view = function (model) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(
-						$elm$core$String$fromInt(
-							$elm$core$Basics$round(model.clicks / 100)))
+						$elm$html$Html$text('Options')
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -5741,15 +5716,128 @@ var $author$project$App$view = function (model) {
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$button,
+								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('btn btn-primary'),
-										$elm$html$Html$Events$onClick($author$project$App$Click)
+										$elm$html$Html$Attributes$class('mb-2')
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('Click')
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('weightM')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Male weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('weightM'),
+												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightM),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(model.weightM))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('weightF')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Female weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('weightF'),
+												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightF),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(model.weightF))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('weightK')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Child weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('weightK'),
+												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightK),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(model.weightK))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('weightB')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Checked bag weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('weightB'),
+												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightB),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(model.weightB))
+											]),
+										_List_Nil)
 									]))
 							])),
 						A2(
@@ -5761,17 +5849,191 @@ var $author$project$App$view = function (model) {
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$button,
+								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('btn btn-primary'),
-										$elm$html$Html$Events$onClick($author$project$App$BuyCursor),
-										$elm$html$Html$Attributes$disabled(model.clicks < 1500)
+										$elm$html$Html$Attributes$class('mb-2')
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('Cursor')
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('pax')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Number of passengers')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('pax'),
+												$elm$html$Html$Events$onInput($author$project$App$UpdatePax),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(model.pax))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('bags')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Number of bags')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('bags'),
+												$elm$html$Html$Attributes$readonly(true),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(
+													A3(
+														$elm$core$List$foldl,
+														$elm$core$Basics$add,
+														0,
+														A2(
+															$elm$core$List$map,
+															function (pax) {
+																return pax.bags;
+															},
+															model.manifest))))
+											]),
+										_List_Nil)
 									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-auto')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('paxWeight')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Passenger Weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('paxWeight'),
+												$elm$html$Html$Attributes$readonly(true),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(
+													A3(
+														$elm$core$List$foldl,
+														$elm$core$Basics$add,
+														0,
+														A2(
+															$elm$core$List$map,
+															$author$project$App$paxWeight(model),
+															A2(
+																$elm$core$List$map,
+																function (pax) {
+																	return pax.gender;
+																},
+																model.manifest)))))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('bagWeight')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Baggage weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$name('bagWeight'),
+												$elm$html$Html$Attributes$readonly(true),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(
+													model.weightB * A3(
+														$elm$core$List$foldl,
+														$elm$core$Basics$add,
+														0,
+														A2(
+															$elm$core$List$map,
+															function (pax) {
+																return pax.bags;
+															},
+															model.manifest))))
+											]),
+										_List_Nil)
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('text-center')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Events$onClick($author$project$App$GenerateManifest)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Generate Manifest')
 							]))
 					]))
 			]));
