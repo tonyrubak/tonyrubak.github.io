@@ -5952,7 +5952,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('paxWeight'),
 												$elm$html$Html$Attributes$readonly(true),
 												$elm$html$Html$Attributes$value(
@@ -5996,7 +5996,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('bagWeight'),
 												$elm$html$Html$Attributes$readonly(true),
 												$elm$html$Html$Attributes$value(
@@ -6028,7 +6028,7 @@ var $author$project$App$view = function (model) {
 						$elm$html$Html$button,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('btn'),
+								$elm$html$Html$Attributes$class('btn btn-dark'),
 								$elm$html$Html$Events$onClick($author$project$App$GenerateManifest)
 							]),
 						_List_fromArray(
