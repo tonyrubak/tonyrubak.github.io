@@ -214,30 +214,30 @@ view model =
             [ div [ class "col-auto" ]
                 [ div [ class "mb-2" ]
                     [ label [ class "form-label", for "weightM" ] [ text "Male weight" ]
-                    , input [ class "form-input", name "weightM", onInput UpdateWeightM, value <| String.fromInt model.weightM ] []
+                    , input [ class "form-control", name "weightM", onInput UpdateWeightM, value <| String.fromInt model.weightM ] []
                     ]
                 , div [ class "mb-2" ]
                     [ label [ class "form-label", for "weightF" ] [ text "Female weight" ]
-                    , input [ class "form-input", name "weightF", onInput UpdateWeightF, value <| String.fromInt model.weightF ] []
+                    , input [ class "form-control", name "weightF", onInput UpdateWeightF, value <| String.fromInt model.weightF ] []
                     ]
                 , div [ class "mb-2" ]
                     [ label [ class "form-label", for "weightK" ] [ text "Child weight" ]
-                    , input [ class "form-input", name "weightK", onInput UpdateWeightK, value <| String.fromInt model.weightK ] []
+                    , input [ class "form-control", name "weightK", onInput UpdateWeightK, value <| String.fromInt model.weightK ] []
                     ]
                 , div [ class "mb-2" ]
                     [ label [ class "form-label", for "weightB" ] [ text "Checked bag weight" ]
-                    , input [ class "form-input", name "weightB", onInput UpdateWeightB, value <| String.fromInt model.weightB ] []
+                    , input [ class "form-control", name "weightB", onInput UpdateWeightB, value <| String.fromInt model.weightB ] []
                     ]
                 ]
             , div [ class "col-auto" ]
                 [ div [ class "mb-2" ]
                     [ label [ class "form-label", for "pax" ] [ text "Number of passengers" ]
-                    , input [ class "form-input", name "pax", onInput UpdatePax, value <| String.fromInt model.pax ] []
+                    , input [ class "form-control", name "pax", onInput UpdatePax, value <| String.fromInt model.pax ] []
                     ]
                 , div [ class "mb-2" ]
                     [ label [ class "form-label", for "bags" ] [ text "Number of bags" ]
                     , input 
-                        [ class "form-input"
+                        [ class "form-control"
                         , name "bags"
                         , readonly True
                         , value <| String.fromInt <| List.foldl (+) 0 <| List.map (\pax -> pax.bags) <| model.manifest

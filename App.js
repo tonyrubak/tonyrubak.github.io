@@ -5738,7 +5738,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('weightM'),
 												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightM),
 												$elm$html$Html$Attributes$value(
@@ -5769,7 +5769,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('weightF'),
 												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightF),
 												$elm$html$Html$Attributes$value(
@@ -5800,7 +5800,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('weightK'),
 												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightK),
 												$elm$html$Html$Attributes$value(
@@ -5831,7 +5831,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('weightB'),
 												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightB),
 												$elm$html$Html$Attributes$value(
@@ -5871,7 +5871,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('pax'),
 												$elm$html$Html$Events$onInput($author$project$App$UpdatePax),
 												$elm$html$Html$Attributes$value(
@@ -5902,7 +5902,7 @@ var $author$project$App$view = function (model) {
 										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('form-input'),
+												$elm$html$Html$Attributes$class('form-control'),
 												$elm$html$Html$Attributes$name('bags'),
 												$elm$html$Html$Attributes$readonly(true),
 												$elm$html$Html$Attributes$value(
