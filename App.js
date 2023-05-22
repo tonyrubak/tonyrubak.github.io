@@ -5908,14 +5908,14 @@ var $author$project$App$viewManifest = function (model) {
 												_List_Nil,
 												_List_fromArray(
 													[
-														$elm$html$Html$text('Gender')
+														$elm$html$Html$text('Type')
 													])),
 												A2(
 												$elm$html$Html$th,
 												_List_Nil,
 												_List_fromArray(
 													[
-														$elm$html$Html$text('Type')
+														$elm$html$Html$text('Gender')
 													])),
 												A2(
 												$elm$html$Html$th,
