@@ -247,6 +247,15 @@ viewManifest model =
                         , input [ class "form-control", name "paxWeight", readonly True, value <| String.fromInt <| manifestPaxWeight model ] []
                         ]
                     , div [ class "mb-2" ]
+                        [ label [ class "form-label", for "bags" ] [ text "Number of bags" ]
+                        , input 
+                            [ class "form-control"
+                            , name "bags"
+                            , readonly True
+                            , value <| String.fromInt <| List.foldl (+) 0 <| List.map (\pax -> pax.bags) <| model.manifest
+                            ] []
+                        ]
+                    , div [ class "mb-2" ]
                         [ label [ class "form-label", for "bagWeight" ] [ text "Baggage weight" ]
                         , input [ class "form-control", name "bagWeight", readonly True, value <| String.fromInt <| manifestBagWeight model ] []
                         ]
@@ -297,15 +306,6 @@ view model =
                 [ div [ class "mb-2" ]
                     [ label [ class "form-label", for "pax" ] [ text "Number of passengers" ]
                     , input [ class "form-control", name "pax", onInput UpdatePax, value <| String.fromInt model.pax ] []
-                    ]
-                , div [ class "mb-2" ]
-                    [ label [ class "form-label", for "bags" ] [ text "Number of bags" ]
-                    , input 
-                        [ class "form-control"
-                        , name "bags"
-                        , readonly True
-                        , value <| String.fromInt <| List.foldl (+) 0 <| List.map (\pax -> pax.bags) <| model.manifest
-                        ] []
                     ]
                 ]
             ]
