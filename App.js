@@ -5657,15 +5657,6 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			$elm$html$Html$Events$alwaysStop,
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $elm$html$Html$Attributes$boolProperty = F2(
-	function (key, bool) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$bool(bool));
-	});
-var $elm$html$Html$Attributes$readonly = $elm$html$Html$Attributes$boolProperty('readOnly');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
@@ -5707,6 +5698,15 @@ var $author$project$App$manifestPaxWeight = function (model) {
 				},
 				model.manifest)));
 };
+var $elm$json$Json$Encode$bool = _Json_wrap;
+var $elm$html$Html$Attributes$boolProperty = F2(
+	function (key, bool) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$bool(bool));
+	});
+var $elm$html$Html$Attributes$readonly = $elm$html$Html$Attributes$boolProperty('readOnly');
 var $elm$html$Html$table = _VirtualDom_node('table');
 var $elm$html$Html$tbody = _VirtualDom_node('tbody');
 var $elm$html$Html$th = _VirtualDom_node('th');
@@ -5814,6 +5814,47 @@ var $author$project$App$viewManifest = function (model) {
 												$elm$html$Html$Attributes$value(
 												$elm$core$String$fromInt(
 													$author$project$App$manifestPaxWeight(model)))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('bags')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Number of bags')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$name('bags'),
+												$elm$html$Html$Attributes$readonly(true),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(
+													A3(
+														$elm$core$List$foldl,
+														$elm$core$Basics$add,
+														0,
+														A2(
+															$elm$core$List$map,
+															function (pax) {
+																return pax.bags;
+															},
+															model.manifest))))
 											]),
 										_List_Nil)
 									])),
@@ -6132,47 +6173,6 @@ var $author$project$App$view = function (model) {
 													$elm$html$Html$Events$onInput($author$project$App$UpdatePax),
 													$elm$html$Html$Attributes$value(
 													$elm$core$String$fromInt(model.pax))
-												]),
-											_List_Nil)
-										])),
-									A2(
-									$elm$html$Html$div,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$class('mb-2')
-										]),
-									_List_fromArray(
-										[
-											A2(
-											$elm$html$Html$label,
-											_List_fromArray(
-												[
-													$elm$html$Html$Attributes$class('form-label'),
-													$elm$html$Html$Attributes$for('bags')
-												]),
-											_List_fromArray(
-												[
-													$elm$html$Html$text('Number of bags')
-												])),
-											A2(
-											$elm$html$Html$input,
-											_List_fromArray(
-												[
-													$elm$html$Html$Attributes$class('form-control'),
-													$elm$html$Html$Attributes$name('bags'),
-													$elm$html$Html$Attributes$readonly(true),
-													$elm$html$Html$Attributes$value(
-													$elm$core$String$fromInt(
-														A3(
-															$elm$core$List$foldl,
-															$elm$core$Basics$add,
-															0,
-															A2(
-																$elm$core$List$map,
-																function (pax) {
-																	return pax.bags;
-																},
-																model.manifest))))
 												]),
 											_List_Nil)
 										]))
