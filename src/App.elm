@@ -258,8 +258,8 @@ viewManifest model =
                 , div [ class "col-auto" ]
                     [ table [ class "table" ]
                         [ thead []
-                            [ th [] [ text "Gender"]
-                            , th [] [ text "Type" ]
+                            [ th [] [ text "Type"]
+                            , th [] [ text "Gender" ]
                             , th [] [ text "Bags" ] ]
                         , tbody []
                             <| List.map viewPaxData model.manifest
