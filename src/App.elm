@@ -240,7 +240,7 @@ viewManifest model =
     case model.manifest of
         [] -> []
         _ ->
-            [ div [ class "row" ]
+            [ div [ class "row justify-content-center" ]
                 [ div [ class "col-auto" ]
                     [ div [ class "mb-2" ]
                         [ label [ class "form-label", for "paxWeight" ] [ text "Passenger Weight" ]

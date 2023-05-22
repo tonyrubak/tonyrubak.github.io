@@ -5773,7 +5773,7 @@ var $author$project$App$viewManifest = function (model) {
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('row')
+						$elm$html$Html$Attributes$class('row justify-content-center')
 					]),
 				_List_fromArray(
 					[
