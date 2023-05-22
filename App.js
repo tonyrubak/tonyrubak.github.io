@@ -5468,12 +5468,12 @@ var $elm$random$Random$map3 = F4(
 					seed3);
 			});
 	});
-var $author$project$App$Busines = {$: 'Busines'};
+var $author$project$App$Business = {$: 'Business'};
 var $author$project$App$Personal = {$: 'Personal'};
 var $author$project$App$paxType = A2(
 	$elm$random$Random$map,
 	function (u) {
-		return (u < 0.05) ? $author$project$App$Busines : $author$project$App$Personal;
+		return (u < 0.05) ? $author$project$App$Business : $author$project$App$Personal;
 	},
 	A2($elm$random$Random$float, 0, 1));
 var $author$project$App$passenger = A4(
@@ -5657,17 +5657,6 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			$elm$html$Html$Events$alwaysStop,
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
-var $author$project$App$paxWeight = F2(
-	function (model, paxGender) {
-		switch (paxGender.$) {
-			case 'Male':
-				return model.weightM;
-			case 'Female':
-				return model.weightF;
-			default:
-				return model.weightK;
-		}
-	});
 var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$html$Html$Attributes$boolProperty = F2(
 	function (key, bool) {
@@ -5680,247 +5669,114 @@ var $elm$html$Html$Attributes$readonly = $elm$html$Html$Attributes$boolProperty(
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $author$project$App$view = function (model) {
+var $author$project$App$manifestBagWeight = function (model) {
+	return model.weightB * A3(
+		$elm$core$List$foldl,
+		$elm$core$Basics$add,
+		0,
+		A2(
+			$elm$core$List$map,
+			function (pax) {
+				return pax.bags;
+			},
+			model.manifest));
+};
+var $author$project$App$paxWeight = F2(
+	function (model, paxGender) {
+		switch (paxGender.$) {
+			case 'Male':
+				return model.weightM;
+			case 'Female':
+				return model.weightF;
+			default:
+				return model.weightK;
+		}
+	});
+var $author$project$App$manifestPaxWeight = function (model) {
+	return A3(
+		$elm$core$List$foldl,
+		$elm$core$Basics$add,
+		0,
+		A2(
+			$elm$core$List$map,
+			$author$project$App$paxWeight(model),
+			A2(
+				$elm$core$List$map,
+				function (pax) {
+					return pax.gender;
+				},
+				model.manifest)));
+};
+var $elm$html$Html$table = _VirtualDom_node('table');
+var $elm$html$Html$tbody = _VirtualDom_node('tbody');
+var $elm$html$Html$th = _VirtualDom_node('th');
+var $elm$html$Html$thead = _VirtualDom_node('thead');
+var $author$project$App$genderToString = function (pGender) {
+	switch (pGender.$) {
+		case 'Male':
+			return 'Male';
+		case 'Female':
+			return 'Female';
+		default:
+			return 'Child';
+	}
+};
+var $author$project$App$paxTypeToString = function (pType) {
+	if (pType.$ === 'Personal') {
+		return 'Personal';
+	} else {
+		return 'Business';
+	}
+};
+var $elm$html$Html$td = _VirtualDom_node('td');
+var $elm$html$Html$tr = _VirtualDom_node('tr');
+var $author$project$App$viewPaxData = function (pax) {
 	return A2(
-		$elm$html$Html$div,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('container-fluid')
-			]),
+		$elm$html$Html$tr,
+		_List_Nil,
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$div,
+				$elm$html$Html$td,
+				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('h1 text-center')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Options')
+						$elm$html$Html$text(
+						$author$project$App$paxTypeToString(pax.paxType))
 					])),
 				A2(
+				$elm$html$Html$td,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						$author$project$App$genderToString(pax.gender))
+					])),
+				A2(
+				$elm$html$Html$td,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						$elm$core$String$fromInt(pax.bags))
+					]))
+			]));
+};
+var $author$project$App$viewManifest = function (model) {
+	var _v0 = model.manifest;
+	if (!_v0.b) {
+		return _List_Nil;
+	} else {
+		return _List_fromArray(
+			[
+				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('row justify-content-center')
+						$elm$html$Html$Attributes$class('row')
 					]),
 				_List_fromArray(
 					[
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('col-auto')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('weightM')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Male weight')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('weightM'),
-												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightM),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(model.weightM))
-											]),
-										_List_Nil)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('weightF')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Female weight')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('weightF'),
-												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightF),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(model.weightF))
-											]),
-										_List_Nil)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('weightK')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Child weight')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('weightK'),
-												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightK),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(model.weightK))
-											]),
-										_List_Nil)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('weightB')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Checked bag weight')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('weightB'),
-												$elm$html$Html$Events$onInput($author$project$App$UpdateWeightB),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(model.weightB))
-											]),
-										_List_Nil)
-									]))
-							])),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('col-auto')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('pax')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Number of passengers')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('pax'),
-												$elm$html$Html$Events$onInput($author$project$App$UpdatePax),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(model.pax))
-											]),
-										_List_Nil)
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('mb-2')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$label,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-label'),
-												$elm$html$Html$Attributes$for('bags')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Number of bags')
-											])),
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control'),
-												$elm$html$Html$Attributes$name('bags'),
-												$elm$html$Html$Attributes$readonly(true),
-												$elm$html$Html$Attributes$value(
-												$elm$core$String$fromInt(
-													A3(
-														$elm$core$List$foldl,
-														$elm$core$Basics$add,
-														0,
-														A2(
-															$elm$core$List$map,
-															function (pax) {
-																return pax.bags;
-															},
-															model.manifest))))
-											]),
-										_List_Nil)
-									]))
-							])),
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(
@@ -5957,19 +5813,7 @@ var $author$project$App$view = function (model) {
 												$elm$html$Html$Attributes$readonly(true),
 												$elm$html$Html$Attributes$value(
 												$elm$core$String$fromInt(
-													A3(
-														$elm$core$List$foldl,
-														$elm$core$Basics$add,
-														0,
-														A2(
-															$elm$core$List$map,
-															$author$project$App$paxWeight(model),
-															A2(
-																$elm$core$List$map,
-																function (pax) {
-																	return pax.gender;
-																},
-																model.manifest)))))
+													$author$project$App$manifestPaxWeight(model)))
 											]),
 										_List_Nil)
 									])),
@@ -6001,42 +5845,361 @@ var $author$project$App$view = function (model) {
 												$elm$html$Html$Attributes$readonly(true),
 												$elm$html$Html$Attributes$value(
 												$elm$core$String$fromInt(
-													model.weightB * A3(
-														$elm$core$List$foldl,
-														$elm$core$Basics$add,
-														0,
-														A2(
-															$elm$core$List$map,
-															function (pax) {
-																return pax.bags;
-															},
-															model.manifest))))
+													$author$project$App$manifestBagWeight(model)))
+											]),
+										_List_Nil)
+									])),
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('mb-2')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$label,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-label'),
+												$elm$html$Html$Attributes$for('payloadWeight')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Payload weight')
+											])),
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control'),
+												$elm$html$Html$Attributes$name('payloadWeight'),
+												$elm$html$Html$Attributes$readonly(true),
+												$elm$html$Html$Attributes$value(
+												$elm$core$String$fromInt(
+													$author$project$App$manifestPaxWeight(model) + $author$project$App$manifestBagWeight(model)))
 											]),
 										_List_Nil)
 									]))
-							]))
-					])),
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('text-center')
-					]),
-				_List_fromArray(
-					[
+							])),
 						A2(
-						$elm$html$Html$button,
+						$elm$html$Html$div,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('btn btn-dark'),
-								$elm$html$Html$Events$onClick($author$project$App$GenerateManifest)
+								$elm$html$Html$Attributes$class('col-auto')
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Generate Manifest')
+								A2(
+								$elm$html$Html$table,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('table')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$thead,
+										_List_Nil,
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
+														$elm$html$Html$text('Gender')
+													])),
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
+														$elm$html$Html$text('Type')
+													])),
+												A2(
+												$elm$html$Html$th,
+												_List_Nil,
+												_List_fromArray(
+													[
+														$elm$html$Html$text('Bags')
+													]))
+											])),
+										A2(
+										$elm$html$Html$tbody,
+										_List_Nil,
+										A2($elm$core$List$map, $author$project$App$viewPaxData, model.manifest))
+									]))
 							]))
 					]))
-			]));
+			]);
+	}
+};
+var $author$project$App$view = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('container-fluid')
+			]),
+		_Utils_ap(
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('h1 text-center')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Options')
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('row justify-content-center mb-3')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('col-auto')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('weightM')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Male weight')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('weightM'),
+													$elm$html$Html$Events$onInput($author$project$App$UpdateWeightM),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(model.weightM))
+												]),
+											_List_Nil)
+										])),
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('weightF')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Female weight')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('weightF'),
+													$elm$html$Html$Events$onInput($author$project$App$UpdateWeightF),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(model.weightF))
+												]),
+											_List_Nil)
+										])),
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('weightK')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Child weight')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('weightK'),
+													$elm$html$Html$Events$onInput($author$project$App$UpdateWeightK),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(model.weightK))
+												]),
+											_List_Nil)
+										])),
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('weightB')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Checked bag weight')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('weightB'),
+													$elm$html$Html$Events$onInput($author$project$App$UpdateWeightB),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(model.weightB))
+												]),
+											_List_Nil)
+										]))
+								])),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('col-auto')
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('pax')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Number of passengers')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('pax'),
+													$elm$html$Html$Events$onInput($author$project$App$UpdatePax),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(model.pax))
+												]),
+											_List_Nil)
+										])),
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('mb-2')
+										]),
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$label,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-label'),
+													$elm$html$Html$Attributes$for('bags')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Number of bags')
+												])),
+											A2(
+											$elm$html$Html$input,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$class('form-control'),
+													$elm$html$Html$Attributes$name('bags'),
+													$elm$html$Html$Attributes$readonly(true),
+													$elm$html$Html$Attributes$value(
+													$elm$core$String$fromInt(
+														A3(
+															$elm$core$List$foldl,
+															$elm$core$Basics$add,
+															0,
+															A2(
+																$elm$core$List$map,
+																function (pax) {
+																	return pax.bags;
+																},
+																model.manifest))))
+												]),
+											_List_Nil)
+										]))
+								]))
+						])),
+					A2(
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('text-center mb-3')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class('btn btn-dark'),
+									$elm$html$Html$Events$onClick($author$project$App$GenerateManifest)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Generate Manifest')
+								]))
+						]))
+				]),
+			$author$project$App$viewManifest(model)));
 };
 var $author$project$App$main = $elm$browser$Browser$element(
 	{init: $author$project$App$init, subscriptions: $author$project$App$subscriptions, update: $author$project$App$update, view: $author$project$App$view});
