@@ -1,7 +1,7 @@
 module App exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
-import Html exposing (Html, button, div, input, label, text)
+import Html exposing (Html, button, div, input, label, table, tbody, td, text, th, thead, tr)
 import Html.Attributes exposing (class, disabled, for, name, readonly, value)
 import Html.Events exposing (onClick, onInput)
 import Random
@@ -34,7 +34,13 @@ main =
 
 type PaxType
     = Personal
-    | Busines
+    | Business
+
+paxTypeToString : PaxType -> String
+paxTypeToString pType =
+    case pType of
+        Personal -> "Personal"
+        Business -> "Business"
 
 
 paxType : Random.Generator PaxType
@@ -42,7 +48,7 @@ paxType =
     Random.map
         (\u ->
             if u < 0.05 then
-                Busines
+                Business
 
             else
                 Personal
@@ -55,6 +61,12 @@ type Gender
     | Female
     | Child
 
+genderToString : Gender -> String
+genderToString pGender =
+    case pGender of
+        Male -> "Male"
+        Female -> "Female"
+        Child -> "Child"
 
 paxWeight : Model -> Gender -> Int
 paxWeight model paxGender =
@@ -120,6 +132,19 @@ passenger =
         gender
         bags
 
+manifestPaxWeight : Model -> Int
+manifestPaxWeight model =
+    model.manifest
+    |> List.map (\pax -> pax.gender)
+    |> List.map (paxWeight model)
+    |> List.foldl (+) 0
+
+manifestBagWeight : Model -> Int
+manifestBagWeight model =
+    model.manifest
+    |> List.map (\pax -> pax.bags)
+    |> List.foldl (+) 0
+    |> (*) model.weightB
 
 type alias Model =
     { weightM : Int
@@ -200,17 +225,56 @@ subscriptions _ =
     Sub.none
 
 
-
 -- VIEW
 
+viewPaxData : Passenger -> Html Msg
+viewPaxData pax =
+    tr []
+        [ td [] [ text <| paxTypeToString pax.paxType ]
+        , td [] [ text <| genderToString pax.gender ]
+        , td [] [ text <| String.fromInt pax.bags ]
+        ]
+
+viewManifest : Model -> List (Html Msg)
+viewManifest model =
+    case model.manifest of
+        [] -> []
+        _ ->
+            [ div [ class "row" ]
+                [ div [ class "col-auto" ]
+                    [ div [ class "mb-2" ]
+                        [ label [ class "form-label", for "paxWeight" ] [ text "Passenger Weight" ]
+                        , input [ class "form-control", name "paxWeight", readonly True, value <| String.fromInt <| manifestPaxWeight model ] []
+                        ]
+                    , div [ class "mb-2" ]
+                        [ label [ class "form-label", for "bagWeight" ] [ text "Baggage weight" ]
+                        , input [ class "form-control", name "bagWeight", readonly True, value <| String.fromInt <| manifestBagWeight model ] []
+                        ]
+                    , div [ class "mb-2" ]
+                        [ label [ class "form-label", for "payloadWeight" ] [ text "Payload weight" ]
+                        , input [ class "form-control", name "payloadWeight", readonly True, value <| String.fromInt <| manifestPaxWeight model + manifestBagWeight model ] []
+                        ]
+                    ]
+                , div [ class "col-auto" ]
+                    [ table [ class "table" ]
+                        [ thead []
+                            [ th [] [ text "Gender"]
+                            , th [] [ text "Type" ]
+                            , th [] [ text "Bags" ] ]
+                        , tbody []
+                            <| List.map viewPaxData model.manifest
+                        ]
+                    ]
+                ]
+            ]
 
 view : Model -> Html Msg
 view model =
     div
         [ class "container-fluid" ]
-        [ div [ class "h1 text-center" ] [ text "Options" ]
+        <| [ div [ class "h1 text-center" ] [ text "Options" ]
         , div
-            [ class "row justify-content-center" ]
+            [ class "row justify-content-center mb-3" ]
             [ div [ class "col-auto" ]
                 [ div [ class "mb-2" ]
                     [ label [ class "form-label", for "weightM" ] [ text "Male weight" ]
@@ -244,17 +308,8 @@ view model =
                         ] []
                     ]
                 ]
-            , div [ class "col-auto" ]
-                [ div [ class "mb-2" ]
-                    [ label [ class "form-label", for "paxWeight" ] [ text "Passenger Weight" ]
-                    , input [ class "form-control", name "paxWeight", readonly True, value <| String.fromInt <| List.foldl (+) 0 <| List.map (paxWeight model) <| List.map (\pax -> pax.gender) <| model.manifest ] []
-                    ]
-                , div [ class "mb-2" ]
-                    [ label [ class "form-label", for "bagWeight" ] [ text "Baggage weight" ]
-                    , input [ class "form-control", name "bagWeight", readonly True, value <| String.fromInt <| (*) model.weightB <| List.foldl (+) 0 <| List.map (\pax -> pax.bags) <| model.manifest ] []
-                    ]
-                ]
             ]
-        , div [ class "text-center" ]
+        , div [ class "text-center mb-3" ]
             [ button [ class "btn btn-dark", onClick GenerateManifest ] [ text "Generate Manifest" ] ]
         ]
+        ++ viewManifest model
